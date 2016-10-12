@@ -1,0 +1,13 @@
+extends ../layouts/default
+
+block intro
+    .container
+        h1 Test
+
+block content
+    .container
+        if tests.length
+            each test in tests
+                h2= test.name
+        else
+            h3.text-muted There are no image galleries yet.

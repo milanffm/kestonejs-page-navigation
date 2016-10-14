@@ -54,10 +54,12 @@ html
                             each link in navigation
                                 console.log(link)
                                 li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
-                                    //ul
-                                    //    each child in link.children
-                                    //        li
-                                    //            a(href=child.href)= child.label
+                                    ul
+                                        //li !{ link.children }
+                                        if link.children
+                                            each child in link.children
+                                                li
+                                                    a(href=child.href)= child.label
 
                         ul.nav.navbar-nav.navbar-right
                             if user

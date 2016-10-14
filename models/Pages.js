@@ -18,21 +18,30 @@ function updateNavigation() {
         state: 'published'
     }, function(err, pages) {
 
-        pages.forEach(function(page, i) {
-            console.log('PAGE:',page);
-            var navLink = _.findWhere(keystone.get('navigation'), {
-                key: page.parent
-            });
-            if (i === 0 && navLink) {
-                console.log('navLink', navLink)
-                navLink.children = [];
-                navLink.children.push({
-                    label: page.title,
-                    key: page.slug,
-                    href: '/' + page.parent + '/' + page.slug
-                });
-            }
+        // get the primary Navigation
+        var navigation = keystone.get('navigation');
+
+        navigation.forEach(function (navLink, i) {
+            console.log('naviLink',navLink);
+            navLink.children = [];
+            
+            setSubNavLink(pages, navLink);
+
         });
+    });
+}
+
+function setSubNavLink(pages, navLink) {
+    
+    pages.forEach(function(page, i) {
+
+        if (page.parent == navLink.key) {
+            navLink.children.push({
+                label: page.title,
+                key: page.slug,
+                href: '/' + page.parent + '/' + page.slug
+            });
+        }
     });
 }
 

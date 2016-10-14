@@ -24,6 +24,8 @@ exports = module.exports = function(req, res, next) {
         });
 
         q.exec(function(err, result) {
+            console.log('page result', result);
+            console.log('navigation', locals.navigation);
             if (result) {
                 locals.section = locals.filters.parent;
                 locals.title = result.title;

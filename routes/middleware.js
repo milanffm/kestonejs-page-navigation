@@ -7,6 +7,7 @@
  * you have more middleware you may want to group it as separate
  * modules in your project's /lib directory.
  */
+var keystone = require('keystone');
 var _ = require('lodash');
 
 
@@ -17,16 +18,29 @@ var _ = require('lodash');
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
 */
-exports.initLocals = function (req, res, next) {
-	res.locals.navLinks = [
-		{ label: 'Home', key: 'home', href: '/' },
-		{ label: 'Gallery', key: 'gallery', href: '/gallery' },
-		{ label: 'Contact', key: 'contact', href: '/contact' },
-		{ label: 'Test', key: 'test', href: '/test' }
-	];
-	res.locals.user = req.user;
-	next();
+// exports.initLocals = function (req, res, next) {
+// 	res.locals.navigation = [
+// 		{ label: 'Home', key: 'home', href: '/' },
+// 		{ label: 'Gallery', key: 'gallery', href: '/gallery' },
+// 		{ label: 'Contact', key: 'contact', href: '/contact' },
+// 		{ label: 'Test', key: 'test', href: '/test' }
+// 	];
+// 	res.locals.user = req.user;
+// 	next();
+// };
+
+exports.initLocals = function(req, res, next) {
+
+    var locals = res.locals;
+
+    // Set locals
+    locals.user = req.user;
+    locals.navigation = keystone.get('navigation');
+
+    next();
+
 };
+
 
 
 /**

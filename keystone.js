@@ -10,22 +10,36 @@ var keystone = require('keystone');
 // and documentation.
 
 keystone.init({
-	'name': 'test keystone site',
-	'brand': 'test keystone site',
+    'name': 'test keystone site',
+    'brand': 'test keystone site',
 
-	'sass': 'public',
-	'static': 'public',
-	'favicon': 'public/favicon.ico',
-	'views': 'templates/views',
-	'view engine': 'jade',
+    'sass': 'public',
+    'static': 'public',
+    'favicon': 'public/favicon.ico',
+    'views': 'templates/views',
+    'view engine': 'jade',
 
-	'emails': 'templates/emails',
+    'emails': 'templates/emails',
 
-	'auto update': true,
-	'session': true,
-	'auth': true,
-	'user model': 'User'
+    'auto update': true,
+    'session': true,
+    'auth': true,
+    'user model': 'User'
 });
+
+keystone.set('navigation', [{
+    label: 'Home',
+    key: 'home',
+    href: '/'
+}, {
+    label: 'Gallery',
+    key: 'gallery',
+    href: '/gallery'
+}, {
+    label: 'Contact',
+    key: 'contact',
+    href: '/contact'
+}]);
 
 // Load your project's Models
 keystone.import('models');
@@ -34,10 +48,10 @@ keystone.import('models');
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
 // for each request) should be added to ./routes/middleware.js
 keystone.set('locals', {
-	_: require('lodash'),
-	env: keystone.get('env'),
-	utils: keystone.utils,
-	editable: keystone.content.editable,
+    _: require('lodash'),
+    env: keystone.get('env'),
+    utils: keystone.utils,
+    editable: keystone.content.editable,
 });
 
 // Load your project's Routes
@@ -46,18 +60,18 @@ keystone.set('routes', require('./routes'));
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
 keystone.set('email locals', {
-	logo_src: '/images/logo-email.gif',
-	logo_width: 194,
-	logo_height: 76,
-	theme: {
-		email_bg: '#f9f9f9',
-		link_color: '#2697de',
-		buttons: {
-			color: '#fff',
-			background_color: '#2697de',
-			border_color: '#1a7cb7',
-		},
-	},
+    logo_src: '/images/logo-email.gif',
+    logo_width: 194,
+    logo_height: 76,
+    theme: {
+        email_bg: '#f9f9f9',
+        link_color: '#2697de',
+        buttons: {
+            color: '#fff',
+            background_color: '#2697de',
+            border_color: '#1a7cb7',
+        },
+    },
 });
 
 // Load your project's email test routes
@@ -66,9 +80,9 @@ keystone.set('email tests', require('./routes/emails'));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	galleries: 'galleries',
-	enquiries: 'enquiries',
-	users: 'users',
+    galleries: 'galleries',
+    enquiries: 'enquiries',
+    users: 'users',
     tests: 'tests'
 });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var keystone = require('keystone'),
-    _ = require('underscore'),
+    _ = require('lodash'),
     Types = keystone.Field.Types;
 
 var Page = new keystone.List('Page', {
@@ -51,7 +51,12 @@ Page.add({
     state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
     author: { type: Types.Relationship, ref: 'User', index: true },
     publishedDate: { type: Types.Date, index: true },
-    parent: { type: Types.Select, options: _.pluck(keystone.get('navigation'), 'key').join(','), required: true, default: keystone.get('navigation')[0].key},
+    parent: {
+        type: Types.Select,
+        options: _.map(keystone.get('navigation'), 'key').join(','),
+        required: true,
+        default: keystone.get('navigation')[0].key
+    },
     content: {
         html: { type: Types.Html, wysiwyg: true, height: 600 }
     },
@@ -62,7 +67,6 @@ Page.defaultColumns = 'title, parent|10%, state|10%, author|10%, publishedDate|2
 
 // Update navigation on page save
 Page.schema.post('save', function () {
-    console.log('Save Post 123');
 
     updateNavigation();
 });
